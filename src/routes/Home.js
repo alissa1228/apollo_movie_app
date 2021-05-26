@@ -1,12 +1,9 @@
 import React from 'react'
+import {gql} from 'apollo-boost'
 
-const Home = () => {
-    return(
-        <div>
-            <h1>Home!</h1>
-        </div>
-    )
-}
+const GET_MOVIES = gql`
+    //backtick
 
-export default Home;
+`
+export default() => "Home";
     
