@@ -3,6 +3,7 @@ import { gql, useQuery } from "@apollo/client"
 import styled from 'styled-components'
 import Movie from '../components/Movie'
 
+//query에 variable이 하나도 없을 때 
 const GET_MOVIES = gql`
   {
     movies {
