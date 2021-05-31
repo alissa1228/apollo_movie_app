@@ -17,17 +17,17 @@ const GET_MOVIE = gql`
 const Detail = () => {
 
     const { id } = useParams();
-    const {loading,result }= useQuery(GET_MOVIE, {variables: { id:+id }});
-    console.log(loading, result);
-    return(
-        <h1>Detail</h1>
-    )
-    // if (loading) {
-    //     return "loading";
-    //   }
-    // if (result && result.movie) {
-    //     return result.movie.title;
-    // }
+    const {loading, data }= useQuery(GET_MOVIE, {variables: { id:+id }});
+    console.log(loading, data);
+    // return(
+    //     <h1>Detail</h1>
+    // )
+    if (loading) {
+        return "loading";
+      }
+    if (data && data.movie) {
+        return data.movie.title;
+    }
 }
 
 export default Detail;
