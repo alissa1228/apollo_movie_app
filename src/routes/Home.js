@@ -17,6 +17,6 @@ export default () => {
     return "loading...";
   }
   if (data && data.movies) {
-    return data.movies.map(item => <h1>{item.id}</h1>);
+    return data.movies.map(item => <h1 key={item.id}>{item.id}</h1>);
   }
 };
