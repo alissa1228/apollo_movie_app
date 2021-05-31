@@ -1,7 +1,7 @@
 import React from "react";
 import { gql, useQuery } from "@apollo/client"
 import styled from 'styled-components'
-import Movie from '../components/Movie'
+import Movies from '../components/Movies'
 
 //query에 variable이 하나도 없을 때 
 const GET_MOVIES = gql`
@@ -27,7 +27,7 @@ const Home = () => {
       {/* {!loading && data.movies && data.movies.map(item=> 
       <Movie key={item.id} id={item.id}>{item.id}</Movie>)} */}
       {!loading && data.movies && 
-      <Movie data={data.movies}/>}
+      <Movies data={data.movies}/>}
     </Container>
   )
 

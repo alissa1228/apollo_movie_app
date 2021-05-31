@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Link } from "react-router-dom";
 
 
-const Movie =  ({ data }) => (
+const Movies =  ({ data }) => (
   <>
   {data.map(item=>
   <div key={item.id}>
@@ -19,7 +19,7 @@ const Movie =  ({ data }) => (
   // </div>
 );
 
-export default Movie;
+export default Movies;
 
 
 
