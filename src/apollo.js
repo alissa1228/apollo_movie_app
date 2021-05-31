@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
-    url:"http://localhost:4000/" //movieQl 
+    url:"https://movieql2.vercel.app" //movieQl 
     //https://movieql2.vercel.app
 });
 
