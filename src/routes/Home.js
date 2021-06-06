@@ -25,9 +25,9 @@ const Home = () => {
       </Header>
       {/* content 부분. 전체적으로 grid를 뿌려주고 그 안에 영화들을 뿌려줌 */}
       {loading && <Loading>Loading...</Loading>}
-      {!loading && data.movies && 
+      {!loading  && 
       <Grid> 
-      <Movies data={data.movies}/>
+      <Movies data={data?.movies}/>
       </Grid>
       }
     </Container>
