@@ -26,10 +26,14 @@ const Detail = () => {
       <Container>
       <Column>
         <Title>{loading? 'Loading....' : data.movie.title}</Title>
-        <Subtitle>English · 4.5</Subtitle>
-        <Description>lorem ipsum lalalla </Description>
+        {!loading && data.movie &&
+        <>
+        <Subtitle>{data.movie.language} · {data.movie.rating}</Subtitle>
+        <Description>{data.movie.description_intro} </Description>
+        </>
+        }
       </Column>
-      <Poster></Poster>
+      <Poster bg={data && data.movie ? data.movie.medium_cover_image: ""}></Poster>
     </Container>
     )
 }
@@ -48,24 +52,30 @@ const Container = styled.div`
 
 const Column = styled.div`
   margin-left: 10px;
+  width:60%;
 `;
 
 const Title = styled.h1`
-  font-size: 65px;
+  font-size: 50px;
   margin-bottom: 15px;
 `;
 
 const Subtitle = styled.h4`
-  font-size: 35px;
+  font-size: 30px;
   margin-bottom: 10px;
 `;
 
 const Description = styled.p`
-  font-size: 28px;
+  font-size: 20px;
 `;
 
 const Poster = styled.div`
   width: 25%;
   height: 60%;
+  border-radius: 10px;
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   background-color: transparent;
+  background-image : url(${({bg})=> bg});
+  background-size: cover;
+  background-position: center center
 `;
