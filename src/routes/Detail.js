@@ -5,9 +5,10 @@ import { gql, useQuery } from '@apollo/client'
 const GET_MOVIE = gql`
   query getMovie($id: Int!) { # Apollo를 위한 부분.
     movie(id: $id) { # 내 서버로 가는 부분
-      id
       title
       medium_cover_image
+      language
+      rating
       description_intro
     }
   }
