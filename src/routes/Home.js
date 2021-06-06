@@ -42,6 +42,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+  background-color: #f3f3f3;
 `
 
 const Header = styled.header`
@@ -49,8 +50,9 @@ font-family: 'Roboto Condensed', sans-serif;
   width: 100%;
   height: 400px;
   text-align: center;
-  background: linear-gradient(to right, #bc4e9c, #f80759);
-  color : #fff;
+  //background: linear-gradient(to right, #bc4e9c, #f80759);
+  background: linear-gradient(45deg, #59c173, #a17fe0, #5d26c1);
+  color : #f3f3f3;
   display: flex;
   flex-direction: column;
   justify-content: center;

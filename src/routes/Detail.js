@@ -1,7 +1,9 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import styled from 'styled-components'
+import { useParams, useHistory } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client'
+import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleLeft , faBackward} from '@fortawesome/free-solid-svg-icons'
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) { # Apollo를 위한 부분.
@@ -19,15 +21,18 @@ const GET_MOVIE = gql`
 `;
 
 
-
 const Detail = () => {
 
+    const history = useHistory();
     const { id } = useParams();
     const {loading, data }= useQuery(GET_MOVIE, {variables: { id: +id }});
     console.log('data', data);
 
     return(
       <Container>
+        <GoBack>
+        <FontAwesomeIcon onClick={history.goBack} icon={faArrowAltCircleLeft} style={IconStyle}/>
+        </GoBack>
         <MovieCon>
           <Column>
           <Title>{loading? 'Loading....' : data.movie.title}</Title>
@@ -38,6 +43,7 @@ const Detail = () => {
         </>
         }
           </Column>
+          {console.log('cover', data?.movie?.medium_cover_image)}
           <Poster bg={data?.movie?.medium_cover_image}/>
         </MovieCon>
         <Recommend>
@@ -70,40 +76,65 @@ export default Detail;
 
     
 const Container = styled.div`
-  background-image: linear-gradient(-45deg, #d754ab, #fd723a);
+  //background-image: linear-gradient(-45deg, #d754ab, #fd723a);
+  background: linear-gradient(-45deg, #59c173, #a17fe0, #5d26c1);
   width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around; //moiveCon, Recommend의 간격을 조정.
+  justify-content: space-around; 
+  //moiveCon, Recommend의 간격을 조정.
   align-items : center;
+  color : #fff;
 `;
+
+const GoBack = styled.div`
+  width: 100%;
+  height: 60px;
+  background-color : #000;
+  display: flex;
+  align-items: center;
+  
+`
+
+const IconStyle ={
+  cursor:'pointer',
+  fontSize:'25px',
+  position: 'relative',
+  left: '5px'
+}
 
 const MovieCon = styled.div`
   display: flex;
   height: 100%;
   justify-content: space-around;
+  align-items: center;
 `
 
 const Column = styled.div`
-  width: 60%;
+  margin-left: 10px;
+  width:60%;
 `;
 
+
 const Title = styled.h1`
-  
+  font-size: 40px;
+  margin-bottom: 15px;
 `;
 
 const Subtitle = styled.h4`
-  
+  font-size: 25px;
+  margin-bottom: 10px;
 `;
 
 const Description = styled.p`
-  
+  font-size: 20px;
 `;
+
 
 const Poster = styled.div`
   width: 25%;
-  height: 60%;
+  height: 65%;
   border-radius: 10px;
   box-shadow: ${props => props.bg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
   background-color: transparent;
@@ -114,58 +145,18 @@ const Poster = styled.div`
 
 const Recommend = styled.div`
   width: 80%;
-  height: 300px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 25px;
   position: relative;
-  top: -50px;
-
+  top: -20px;
 `
 
 const Suggestions = styled.div`
-  height: 300px;
+  height: 200px;
   background-image : url(${({subbg})=> subbg});
   box-shadow: ${props => props.subbg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
+  background-size: cover;
+  background-position: center center;
   border-radius: 10px;
 `
-
-// const Container = styled.div`
-//   height: 100vh;
-//   background-image: linear-gradient(-45deg, #d754ab, #fd723a);
-//   width: 100%;
-//   display: flex;
-//   justify-content: space-around;
-//   align-items: center;
-//   color: white;
-// `;
-
-// const Column = styled.div`
-//   margin-left: 10px;
-//   width:60%;
-// `;
-
-// const Title = styled.h1`
-//   font-size: 50px;
-//   margin-bottom: 15px;
-// `;
-
-// const Subtitle = styled.h4`
-//   font-size: 30px;
-//   margin-bottom: 10px;
-// `;
-
-// const Description = styled.p`
-//   font-size: 20px;
-// `;
-
-// const Poster = styled.div`
-//   width: 25%;
-//   height: 60%;
-//   border-radius: 10px;
-//   box-shadow: ${props => props.bg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
-//   background-color: transparent;
-//   background-image : url(${({bg})=> bg});
-//   background-size: cover;
-//   background-position: center center
-// `;
