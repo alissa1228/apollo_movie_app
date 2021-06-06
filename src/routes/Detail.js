@@ -24,18 +24,16 @@ const Detail = () => {
 
     return(
       <Container>
-        <Title>{loading && 'Loading....'}</Title>
-        {!loading && data.movie &&(
-          <>
-     <Column>
-        <Title>{data.movie.title}</Title>
-
+      <Column>
+        <Title>{loading? 'Loading....' : data.movie.title}</Title>
+        {!loading && data.movie &&
+        <>
         <Subtitle>{data.movie.language} · {data.movie.rating}</Subtitle>
         <Description>{data.movie.description_intro} </Description>
+        </>
+        }
       </Column>
-      <Poster bg={data.movie.medium_cover_image}></Poster>
-      </>
-      )}
+      <Poster bg={data && data.movie ? data.movie.medium_cover_image: ""}></Poster>
     </Container>
     )
 }
@@ -75,7 +73,7 @@ const Poster = styled.div`
   width: 25%;
   height: 60%;
   border-radius: 10px;
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  box-shadow: ${props => props.bg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
   background-color: transparent;
   background-image : url(${({bg})=> bg});
   background-size: cover;
