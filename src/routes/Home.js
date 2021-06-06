@@ -20,14 +20,16 @@ const Home = () => {
   return (
     <Container>
       <Header>
-        <h1>Apollo_Movie_App</h1>
-        <h2>Practicing GraphQL with Apollo!</h2>
+        <Title>Welcome to 'Apollo_Movie_App!'</Title>
+        <SubTitle>Find your Movie!</SubTitle>
       </Header>
+      {/* content 부분. 전체적으로 grid를 뿌려주고 그 안에 영화들을 뿌려줌 */}
       {loading && <Loading>Loading...</Loading>}
-      {/* {!loading && data.movies && data.movies.map(item=> 
-      <Movie key={item.id} id={item.id}>{item.id}</Movie>)} */}
       {!loading && data.movies && 
-      <Movies data={data.movies}/>}
+      <Grid> 
+      <Movies data={data.movies}/>
+      </Grid>
+      }
     </Container>
   )
 
@@ -43,7 +45,9 @@ const Container = styled.div`
 `
 
 const Header = styled.header`
+font-family: 'Roboto Condensed', sans-serif;
   width: 100%;
+  height: 400px;
   text-align: center;
   background: linear-gradient(to right, #bc4e9c, #f80759);
   color : #fff;
@@ -51,16 +55,6 @@ const Header = styled.header`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  > h1 {
-    font-size: 60px;
-    font-weight: 600;
-    margin-bottom : 10px;
-  }
-
-  > h2 {
-    font-size: 35px;
-  }
 
   // &:hover {
   // color : linear-gradient(#FFFFFF, #FFEFBA); 
@@ -71,6 +65,17 @@ const Header = styled.header`
 
 `
 
+const Title = styled.h1`
+  font-size: 60px;
+  font-weight: 400;
+  margin-bottom : 20px;
+`
+
+const SubTitle = styled.h3`
+  font-size: 35px;
+  margin-top: 10px;
+`
+
 const Loading = styled.div`
 font-size: 18px;
 opacity: 0.5;
@@ -78,3 +83,11 @@ font-weight: 500;
 margin-top: 10px;
 `
 
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
+  width: 80%;
+  position: relative;
+  top: -50px;
+`

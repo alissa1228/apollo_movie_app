@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const Movies =  ({ data }) => (
-  <Grid>
+  <>
   {data.map(item=>
   <Container key={item.id}>
     <Link to={`/${item.id}`}>
@@ -13,27 +13,25 @@ const Movies =  ({ data }) => (
     </Link>
   </Container>
   )}
-  </Grid>
+</>
 );
 
 export default Movies;
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 25px;
-  width: 60%;
-  position: relative;
-  top: -50px;
-`
 
 const Container = styled.div`
-    width:100%
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 16%), 0 3px 6px rgb(0 0 0 / 23%);
+  overflow: hidden;
+  border-radius: 10px;
 `
 
 const Poster = styled.div`
     background-image : url(${props=> props.bg});
-    height: 200px;
+    height: 300px;
+    background-size: cover;
+    background-position: center center
 `
 
 
