@@ -80,6 +80,7 @@ const SubTitle = styled.h3`
 
 const Loading = styled.div`
 font-size: 18px;
+height: 100vh;
 opacity: 0.5;
 font-weight: 500;
 margin-top: 10px;

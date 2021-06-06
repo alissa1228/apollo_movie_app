@@ -1,9 +1,9 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import { gql, useQuery } from '@apollo/client'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowAltCircleLeft , faBackward} from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleLeft} from '@fortawesome/free-solid-svg-icons'
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) { # Apollo를 위한 부분.
@@ -48,8 +48,11 @@ const Detail = () => {
         </MovieCon>
         <Recommend>
           {data?.suggestions.map(item=>
+          <Link to={`/${item.id}`}>
           <Suggestions key={item.id} subbg={item.medium_cover_image}>
-          </Suggestions>)
+          </Suggestions>
+          </Link>
+          )
 
           }
         </Recommend>
