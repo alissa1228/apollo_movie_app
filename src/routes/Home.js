@@ -46,7 +46,7 @@ const Container = styled.div`
 `
 
 const Header = styled.header`
-font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   width: 100%;
   height: 400px;
   text-align: center;

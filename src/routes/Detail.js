@@ -15,6 +15,7 @@ const GET_MOVIE = gql`
       description_intro
     }suggestions(id:$id){
       id
+      title
       medium_cover_image
   }
   }
@@ -29,71 +30,88 @@ const Detail = () => {
     console.log('data', data);
 
     return(
+      // <Container>
+      //   <GoBack>
+      //   <FontAwesomeIcon onClick={history.goBack} icon={faArrowAltCircleLeft} style={IconStyle}/>
+      //   </GoBack>
+      //   <MovieCon>
+      //     <Column>
+      //     <Title>{loading? 'Loading....' : data.movie.title}</Title>
+      //     {!loading && 
+      //   <>
+      //   <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
+      //   <Description>{data?.movie?.description_intro} </Description>
+      //   </>
+      //   }
+      //     </Column>
+      //     <Poster bg={data?.movie?.medium_cover_image}/>
+      //   </MovieCon>
+      //   <Recommend>
+      //     {data?.suggestions.map(item=>
+      //     <Link to={`/${item.id}`}>
+      //     <Suggestions key={item.id}>
+      //       {item.title}
+      //     </Suggestions>
+      //     </Link>
+      //     )
+      //     }
+      //   </Recommend>
+      // </Container>
       <Container>
         <GoBack>
-        <FontAwesomeIcon onClick={history.goBack} icon={faArrowAltCircleLeft} style={IconStyle}/>
+         <FontAwesomeIcon onClick={history.goBack} icon={faArrowAltCircleLeft} style={IconStyle}/>
         </GoBack>
-        <MovieCon>
-          <Column>
-          <Title>{loading? 'Loading....' : data.movie.title}</Title>
-          {!loading && 
+      <Content>
+      <Column>
+        <Title>{loading? 'Loading....' : data.movie.title}</Title>
+        {!loading && 
         <>
         <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
         <Description>{data?.movie?.description_intro} </Description>
+        <Recommend>
+        {data?.suggestions.map(item=>
+        <Link to={`/${item.id}`} style={{textDecoration:'none'}}>
+        <Suggestions key={item.id}>
+          {item.title}
+        </Suggestions>
+        </Link>
+        )
+        }
+      </Recommend>
         </>
         }
-          </Column>
-          {console.log('cover', data?.movie?.medium_cover_image)}
-          <Poster bg={data?.movie?.medium_cover_image}/>
-        </MovieCon>
-        <Recommend>
-          {data?.suggestions.map(item=>
-          <Link to={`/${item.id}`}>
-          <Suggestions key={item.id} subbg={item.medium_cover_image}>
-          </Suggestions>
-          </Link>
-          )
-
-          }
-        </Recommend>
-      </Container>
-
-    //   <Container>
-    //   <Column>
-    //     <Title>{loading? 'Loading....' : data.movie.title}</Title>
-    //     {!loading && 
-    //     <>
-    //     <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
-    //     <Description>{data?.movie?.description_intro} </Description>
-    //     </>
-    //     }
-    //   </Column>
-    //   <Poster bg={data?.movie?.medium_cover_image}></Poster>
-    //   {/* {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)} */}
-    // </Container>
+      </Column>
+      <Poster bg={data?.movie?.medium_cover_image}></Poster>
+      {/* {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)} */}
+      </Content>
+    </Container>
     )
 }
 
 export default Detail;
 
 
-    
 const Container = styled.div`
+  font-family: 'Roboto Condensed', sans-serif;
+  color : #fff;
+`
+    
+const Content = styled.div`
   //background-image: linear-gradient(-45deg, #d754ab, #fd723a);
   background: linear-gradient(-45deg, #59c173, #a17fe0, #5d26c1);
   width: 100%;
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
   justify-content: space-around; 
   //moiveCon, Recommend의 간격을 조정.
   align-items : center;
-  color : #fff;
+  
 `;
 
 const GoBack = styled.div`
   width: 100%;
-  height: 60px;
+  height: 50px;
   background-color : #000;
   display: flex;
   align-items: center;
@@ -104,15 +122,15 @@ const IconStyle ={
   cursor:'pointer',
   fontSize:'25px',
   position: 'relative',
-  left: '5px'
+  left: '10px'
 }
 
-const MovieCon = styled.div`
-  display: flex;
-  height: 100%;
-  justify-content: space-around;
-  align-items: center;
-`
+// const MovieCon = styled.div`
+//   display: flex;
+//   height: 100%;
+//   justify-content: space-around;
+//   align-items: center;
+// `
 
 const Column = styled.div`
   margin-left: 10px;
@@ -147,19 +165,19 @@ const Poster = styled.div`
 `;
 
 const Recommend = styled.div`
-  width: 80%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 25px;
   position: relative;
-  top: -20px;
+  top: 20px;
 `
 
 const Suggestions = styled.div`
-  height: 200px;
-  background-image : url(${({subbg})=> subbg});
-  box-shadow: ${props => props.subbg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
-  background-size: cover;
-  background-position: center center;
-  border-radius: 10px;
+  background-color : #fff;
+  color : #000;
+  text-align : center;
+  border-radius : 5px;
+  box-shadow: 00 15px 12px rgba(0,0,0,0.22);
+  word-break: break-word;
+  padding: 5px;
 `
