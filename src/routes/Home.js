@@ -50,8 +50,8 @@ const Header = styled.header`
   width: 100%;
   height: 400px;
   text-align: center;
-  //background: linear-gradient(to right, #bc4e9c, #f80759);
-  background: linear-gradient(45deg, #59c173, #a17fe0, #5d26c1);
+  background: linear-gradient(to right, #bc4e9c, #f80759);
+  //background: linear-gradient(45deg, #59c173, #a17fe0, #5d26c1);
   color : #f3f3f3;
   display: flex;
   flex-direction: column;

@@ -97,8 +97,8 @@ const Container = styled.div`
 `
     
 const Content = styled.div`
-  //background-image: linear-gradient(-45deg, #d754ab, #fd723a);
-  background: linear-gradient(-45deg, #59c173, #a17fe0, #5d26c1);
+  background-image: linear-gradient(-45deg, #d754ab, #fd723a);
+  //background: linear-gradient(-45deg, #59c173, #a17fe0, #5d26c1);
   width: 100%;
   height: 100vh;
   display: flex;
@@ -180,4 +180,9 @@ const Suggestions = styled.div`
   box-shadow: 00 15px 12px rgba(0,0,0,0.22);
   word-break: break-word;
   padding: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
 `
