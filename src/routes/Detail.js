@@ -38,7 +38,7 @@ const Detail = () => {
         }
       </Column>
       <Poster bg={data?.movie?.medium_cover_image}></Poster>
-      {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)}
+      {/* {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)} */}
     </Container>
     )
 }

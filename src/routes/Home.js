@@ -9,6 +9,7 @@ const GET_MOVIES = gql`
     movies {
       id
       medium_cover_image
+      isLiked @client
     }
   }
 `;
@@ -27,7 +28,9 @@ const Home = () => {
       {loading && <Loading>Loading...</Loading>}
       {!loading  && 
       <Grid> 
-      <Movies data={data?.movies}/>
+        {data?.movies?.map(item=>
+        <Movies key={item.id} id={item.id} isLiked={item.isLiked} bg={item.medium_cover_image}/>
+        )}
       </Grid>
       }
     </Container>
@@ -45,16 +48,15 @@ const Container = styled.div`
 `
 
 const Header = styled.header`
-font-family: 'Roboto Condensed', sans-serif;
-  width: 100%;
-  height: 400px;
-  text-align: center;
-  background: linear-gradient(to right, #bc4e9c, #f80759);
-  color : #fff;
+  background-image: linear-gradient(-45deg, #d754ab, #fd723a);
+  //height: 45vh;
+  height: 70vh;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   // &:hover {
   // color : linear-gradient(#FFFFFF, #FFEFBA); 
@@ -87,7 +89,7 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 25px;
-  width: 80%;
+  width: 60%;
   position: relative;
-  top: -50px;
+  top: -30px;
 `
