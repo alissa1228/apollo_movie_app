@@ -1,16 +1,18 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { gql, useQuery } from '@apollo/client'
+import { gql, useQuery,useMutation } from '@apollo/client'
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) { # Apollo를 위한 부분.
     movie(id: $id) { # 내 서버로 가는 부분
+      id
       title
       medium_cover_image
       language
       rating
       description_intro
+      isLiked @client
     }suggestions(id:$id){
       id
       medium_cover_image
@@ -18,20 +20,28 @@ const GET_MOVIE = gql`
   }
 `;
 
+const LIKE_MOVIE = gql`
+  mutation toggleLikeMovie($id:Int!, $isLiked: Boolean!){
+    toggleLikeMovie(id:$id, isLiked: $isLiked) @client
+  }
+`
 
-
-const Detail = () => {
+const Detail = ({isLiked}) => {
 
     const { id } = useParams();
     const {loading, data }= useQuery(GET_MOVIE, {variables: { id: +id }});
     console.log('data', data);
 
+
+    const [toggleMovie] = useMutation(LIKE_MOVIE, { variables: {id: +id},isLiked});
+
     return(
       <Container>
       <Column>
-        <Title>{loading? 'Loading....' : data.movie.title}</Title>
+        <Title>{loading? 'Loading....' :`${data.movie.title} ${data.movie.isLiked ? "💖":"💔"}`}</Title>
         {!loading && 
         <>
+         <button onClick={isLiked ? null : toggleMovie}>{isLiked? "Unlinke": "Like"}</button>
         <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
         <Description>{data?.movie?.description_intro} </Description>
         </>
