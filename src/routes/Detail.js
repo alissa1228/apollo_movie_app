@@ -1,7 +1,11 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import { gql, useQuery,useMutation } from '@apollo/client'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowAltCircleLeft} from '@fortawesome/free-solid-svg-icons'
+
 
 const GET_MOVIE = gql`
   query getMovie($id: Int!) { # Apollo를 위한 부분.
@@ -28,6 +32,7 @@ const LIKE_MOVIE = gql`
 
 const Detail = ({isLiked}) => {
 
+    const history = useHistory();
     const { id } = useParams();
     const {loading, data }= useQuery(GET_MOVIE, {variables: { id: +id }});
     console.log('data', data);
@@ -36,20 +41,25 @@ const Detail = ({isLiked}) => {
     const [toggleMovie] = useMutation(LIKE_MOVIE, { variables: {id: +id},isLiked});
 
     return(
+    <>
+      <GoBack>
+      <FontAwesomeIcon onClick={history.goBack} icon={faArrowAltCircleLeft} style={IconStyle}/>
+     </GoBack>
       <Container>
       <Column>
-        <Title>{loading? 'Loading....' :`${data.movie.title} ${data.movie.isLiked ? "💖":"💔"}`}</Title>
+        <Title>{loading? 'Loading....' : data.movie.title}</Title>
         {!loading && 
         <>
-         <button onClick={isLiked ? null : toggleMovie}>{isLiked? "Unlinke": "Like"}</button>
-        <Subtitle>{data?.movie?.language} · {data?.movie?.rating}</Subtitle>
+         <LikeBtn onClick={isLiked ? null : toggleMovie}>👍 Like</LikeBtn>
+        <Subtitle>{data?.movie?.language} · {data?.movie?.rating} {data.movie.isLiked ? "💖":"💔"}</Subtitle>
         <Description>{data?.movie?.description_intro} </Description>
+        {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)}
         </>
         }
       </Column>
       <Poster bg={data?.movie?.medium_cover_image}></Poster>
-      {/* {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)} */}
     </Container>
+    </>
     )
 }
 
@@ -94,3 +104,30 @@ const Poster = styled.div`
   background-size: cover;
   background-position: center center
 `;
+
+const GoBack = styled.div`
+  width: 100%;
+  height: 40px;
+  background-color : #000;
+  display: flex;
+  align-items: center;
+  
+`
+
+const IconStyle ={
+  cursor:'pointer',
+  fontSize:'25px',
+  position: 'relative',
+  left: '10px',
+  color: 'white'
+}
+
+const LikeBtn = styled.button`
+  background: #f3f3f3;
+  color: #000;
+  border: 0;
+  border-radius: 10px;
+  width: 60px;
+  height: 30px;
+  cursor : pointer;
+`
