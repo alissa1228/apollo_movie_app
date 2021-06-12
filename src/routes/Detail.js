@@ -82,36 +82,59 @@ const Container = styled.div`
   justify-content: space-around;
   align-items: center;
   color: white;
+
 `;
 
 const Column = styled.div`
   margin-left: 10px;
   width:60%;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+    margin: 0;
+  }
 `;
 
 const Title = styled.h1`
   font-size: 50px;
   margin-bottom: 15px;
+  
+  @media screen and (max-width: 768px) {
+    font-size: 30px;
+  }
+
 `;
 
 const Subtitle = styled.h4`
   font-size: 30px;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+  }
 `;
 
 const Description = styled.p`
   font-size: 20px;
+
+  @media screen and (max-width: 768px) {
+    font-size : 15px;
+  }
 `;
 
 const Poster = styled.div`
-  width: 25%;
-  height: 70%;
+  width: 20%;
+  height: 65%;
   border-radius: 10px;
   box-shadow: ${props => props.bg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
   background-color: transparent;
   background-image : url(${({bg})=> bg});
   background-size: cover;
-  background-position: center center
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+
 `;
 
 const GoBack = styled.div`
@@ -146,6 +169,11 @@ const Recommend = styled.div`
   grid-gap: 25px;
   position: relative;
   top: 20px;
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(2,1fr);
+  }
+
 `
 
 const Suggestions = styled.div`
@@ -160,15 +188,23 @@ const Suggestions = styled.div`
   justify-content: center;
   align-items: center;
   height: 60px;
+  font-size: 1rem;
+
 
   a {
     text-decoration: none;
     color: #000;
-    font-size : 13px;
+   
 
     :visited {
       color : #000;
     }
   }
+
+  @media screen and (max-width: 1024px) {
+    font-size: 0.5rem;
+  }
+
+  
 `
 

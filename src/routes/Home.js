@@ -50,19 +50,18 @@ const Container = styled.div`
 const Header = styled.header`
   background-image: linear-gradient(-45deg, #d754ab, #fd723a);
   //height: 45vh;
-  height: 70vh;
+  height: 55vh;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align : center;
   width: 100%;
 
-  // &:hover {
-  // color : linear-gradient(#FFFFFF, #FFEFBA); 
-  // -webkit-background-clip: text;
-  // -webkit-text-fill-color: transparent;
-  // }
+  @media screen and (max-width: 1024px) {
+    height: 45vh;
+  }
 
 
 `
@@ -71,11 +70,20 @@ const Title = styled.h1`
   font-size: 60px;
   font-weight: 400;
   margin-bottom : 20px;
+
+  @media screen and (max-width: 500px) {
+    font-size : 30px;
+  }
+
 `
 
 const SubTitle = styled.h3`
   font-size: 35px;
   margin-top: 10px;
+
+  @media screen and (max-width: 500px) {
+    font-size : 20px;
+  }
 `
 
 const Loading = styled.div`
@@ -92,4 +100,15 @@ const Grid = styled.div`
   width: 60%;
   position: relative;
   top: -30px;
+
+  @media screen and (max-width: 1024px) {
+    grid-template-columns: repeat(3,1fr);
+    width: 80%;
+  }
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: repeat(2,1fr);
+    width: 80%;
+  }
+
 `
