@@ -1,10 +1,11 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { gql, useQuery,useMutation } from '@apollo/client'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleLeft} from '@fortawesome/free-solid-svg-icons'
+import { visit } from 'graphql'
 
 
 const GET_MOVIE = gql`
@@ -19,6 +20,7 @@ const GET_MOVIE = gql`
       isLiked @client
     }suggestions(id:$id){
       id
+      title
       medium_cover_image
   }
   }
@@ -53,7 +55,14 @@ const Detail = ({isLiked}) => {
          <LikeBtn onClick={isLiked ? null : toggleMovie}>👍 Like</LikeBtn>
         <Subtitle>{data?.movie?.language} · {data?.movie?.rating} {data.movie.isLiked ? "💖":"💔"}</Subtitle>
         <Description>{data?.movie?.description_intro} </Description>
-        {data?.suggestions.map(s=><h1 key={s.id}>{s.id}</h1>)}
+        <Recommend>
+        {data?.suggestions.map(item=>
+        <Suggestions key={item.id}>
+          <Link to={`/${item.id}`}>
+            {item.title}
+          </Link>
+        </Suggestions>)}
+        </Recommend>
         </>
         }
       </Column>
@@ -96,7 +105,7 @@ const Description = styled.p`
 
 const Poster = styled.div`
   width: 25%;
-  height: 60%;
+  height: 70%;
   border-radius: 10px;
   box-shadow: ${props => props.bg && '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'};
   background-color: transparent;
@@ -131,3 +140,35 @@ const LikeBtn = styled.button`
   height: 30px;
   cursor : pointer;
 `
+const Recommend = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 25px;
+  position: relative;
+  top: 20px;
+`
+
+const Suggestions = styled.div`
+  background-color : #fff;
+  color : #000;
+  text-align : center;
+  border-radius : 5px;
+  box-shadow: 00 15px 12px rgba(0,0,0,0.22);
+  word-break: break-word;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+
+  a {
+    text-decoration: none;
+    color: #000;
+    font-size : 13px;
+
+    :visited {
+      color : #000;
+    }
+  }
+`
+
